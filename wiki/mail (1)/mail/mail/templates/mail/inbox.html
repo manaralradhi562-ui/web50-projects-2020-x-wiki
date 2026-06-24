@@ -1,0 +1,56 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Mail</title>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="crossorigin">
+        <link rel="stylesheet" href="{% static 'mail/styles.css' %}">
+    </head>
+    <body>
+        <div class="container py-4">
+            <div class="d-flex justify-content-between align-items-center mb-4 pb-2 border-bottom">
+                <h2 class="user-email">{{ request.user.email }}</h2>
+                <div>
+                    <a class="btn btn-outline-danger btn-sm" href="{% url 'logout' %}">Log Out</a>
+                </div>
+            </div>
+
+            <div class="navigation-buttons mb-4">
+                <button class="btn btn-primary" id="inbox">Inbox</button>
+                <button class="btn btn-primary" id="compose">Compose</button>
+                <button class="btn btn-primary" id="sent">Sent</button>
+                <button class="btn btn-primary" id="archived">Archived</button>
+            </div>
+
+            <div id="emails-view"></div>
+
+            <div id="single-email-view" style="display: none;"></div>
+
+            <div id="compose-view" style="display: none;">
+                <h3 class="mb-3">New Email</h3>
+                <form id="compose-form">
+                    <div class="form-group">
+                        <label for="compose-recipients">To:</label>
+                        <input disabled class="form-control" value="{{ request.user.email }}">
+                    </div>
+                    <div class="form-group">
+                        <label for="compose-recipients">Recipients:</label>
+                        <input type="email" class="form-control" id="compose-recipients" placeholder="example@example.com">
+                    </div>
+                    <div class="form-group">
+                        <label for="compose-subject">Subject:</label>
+                        <input type="text" class="form-control" id="compose-subject" placeholder="Subject">
+                    </div>
+                    <div class="form-group">
+                        <label for="compose-body">Body:</label>
+                        <textarea class="form-control" id="compose-body" rows="10" placeholder="Write your email here..."></textarea>
+                    </div>
+                    <input type="submit" class="btn btn-success px-4" value="Send">
+                </form>
+            </div>
+        </div>
+
+        <script src="{% static 'mail/inbox.js' %}"></script>
+    </body>
+</html>
